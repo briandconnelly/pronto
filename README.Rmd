@@ -47,7 +47,26 @@ stations <- pronto_stations()
 
 Let's make a map of current bike availability across the city using [ggmap](https://github.com/dkahle/ggmap).
 
-*coming soon!*
+```{r ExampleStationMap}
+library(pronto)
+library(ggplot2)
+library(ggmap)
+
+s <- pronto_stations()
+
+map <- get_googlemap("seattle", zoom = 12, color = "bw", maptype = "roadmap")
+p <- ggmap(map) +
+    geom_point(data=s$stations, aes(x=lo, y=la, size=ba, color=ba)) +
+    scale_size_area(guide=FALSE) +
+    scale_color_continuous(name = "Bikes Available") +
+    theme_minimal() +
+    theme(axis.text = element_blank()) +
+    theme(axis.title = element_blank()) +
+    theme(legend.title = element_text(size = rel(0.8))) +
+    theme(legend.text = element_text(size = rel(0.6)))
+p
+
+```
 
 
 # Disclaimer
