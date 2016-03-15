@@ -5,7 +5,7 @@
 #'
 #' \itemize{
 #'     \item \code{timestamp} Station information upload timestamp (ms)
-#'     \item \code{stations} A list of information for every station in the system
+#'     \item \code{stations} A data frame containing information for every station in the system
 #'     \item \code{schemeSuspended} Whether or not operations are suspended at all stations
 #' }
 #'
@@ -17,5 +17,5 @@
 #' station_info <- pronto_stations()
 #'
 pronto_stations <- function() {
-    pronto_parse(pronto_GET())
+    pronto_parse(pronto_GET(), simplifyDataFrame = TRUE)
 }

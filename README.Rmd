@@ -56,7 +56,7 @@ s <- pronto_stations()
 
 map <- get_googlemap("seattle", zoom = 12, color = "bw", maptype = "roadmap")
 p <- ggmap(map) +
-    geom_point(data=s$stations, aes(x=lo, y=la, size=ba, color=ba)) +
+    geom_point(data=s$stations, aes(x=lo, y=la, size=ba, color=ba), alpha=0.6) +
     scale_size_area(guide=FALSE) +
     scale_color_continuous(name = "Bikes Available") +
     theme_minimal() +

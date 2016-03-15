@@ -48,7 +48,7 @@ map <- get_googlemap("seattle", zoom = 12, color = "bw", maptype = "roadmap")
 #> Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=seattle&zoom=12&size=640x640&scale=2&maptype=roadmap&sensor=false
 #> Information from URL : http://maps.googleapis.com/maps/api/geocode/json?address=seattle&sensor=false
 p <- ggmap(map) +
-    geom_point(data=s$stations, aes(x=lo, y=la, size=ba, color=ba)) +
+    geom_point(data=s$stations, aes(x=lo, y=la, size=ba, color=ba), alpha=0.6) +
     scale_size_area(guide=FALSE) +
     scale_color_continuous(name = "Bikes Available") +
     theme_minimal() +
