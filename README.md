@@ -2,7 +2,7 @@
 pronto
 ======
 
-pronto is a simple R package for TODO.
+pronto is a simple R package for interacting with data from from Seattle's [Pronto](http://www.prontocycleshare.com) cycle sharing system.
 
 Installation
 ============

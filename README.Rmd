@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 # pronto                                                                    
 
-pronto is a simple R package for TODO.
+pronto is a simple R package for interacting with data from from Seattle's [Pronto](http://www.prontocycleshare.com) cycle sharing system.
 
 
 # Installation                                                                  
@@ -44,6 +44,7 @@ stations <- pronto_stations()
 Let's make a map of current bike availability across the city using [ggmap](https://github.com/dkahle/ggmap).
 
 *coming soon!*
+
 
 # Disclaimer
 
