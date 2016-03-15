@@ -66,8 +66,9 @@ avail <- s$stations %>%
     filter(su == FALSE) %>%
     summarise(StationsAvail=n(), BikesAvail=sum(ba))
 
-map <- get_map(location = c(lon=mean(range(s$stations$lo)), lat=mean(range(s$stations$la))),
-               zoom = 13, maptype = "terrain-lines")
+map <- get_map(location = c(lon=mean(range(s$stations$lo)),
+                            lat=mean(range(s$stations$la))),
+               zoom = 13, maptype = "toner-lite")
 p <- ggmap(map) +
     geom_point(data = s$stations,
                aes(x=lo, y=la, size=ba, color=ba), alpha = 0.6) +
@@ -108,7 +109,7 @@ for (i in seq(60)) {
 }
 
 map <- get_map(location = c(lon=mean(range(s$stations$lo)), lat=mean(range(s$stations$la))),
-               zoom = 13, maptype = "terrain-lines")
+               zoom = 13, maptype = "toner-lite")
 p <- ggmap(map) +
     geom_point(data = stationdata,
                aes(x=lo, y=la, size=ba, color=ba, frame = timestamp),
@@ -147,7 +148,7 @@ closest_station <- pronto_stations()$stations %>%
 
 cat(sprintf("The %s station is %.02f km away and has %d bike(s) available",
             closest_station$s, closest_station$dist_km, closest_station$ba))
-#> The E Blaine St & Fairview Ave E station is 0.59 km away and has 8 bike(s) available
+#> The E Blaine St & Fairview Ave E station is 0.59 km away and has 5 bike(s) available
 ```
 
 Disclaimer
