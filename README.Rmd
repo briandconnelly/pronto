@@ -1,0 +1,50 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+# pronto                                                                    
+
+pronto is a simple R package for TODO.
+
+
+# Installation                                                                  
+
+`pronto` is not on [CRAN](http://cran.r-project.org/), but you can use      
+[devtools](http://cran.r-project.org/web/packages/devtools/index.html) to       
+install the latest and greatest version. To do so:                              
+
+if(!require("devtools")) install.packages("devtools")                       
+devtools::install_github("briandconnelly/pronto")
+
+
+# Examples
+
+## Get current station data
+
+```{r Example get}
+library(pronto)
+
+stations <- pronto_stations()
+```
+
+## Plotting system information
+
+Let's make a map of current bike availability across the city using [ggmap](https://github.com/dkahle/ggmap).
+
+*coming soon!*
+
+# Disclaimer
+
+Neither this package nor its contributer(s) are affiliated with Pronto.

@@ -1,0 +1,18 @@
+Package: pronto
+Type: Package
+Title: Retrieve Data from Seattle's Pronto Cycle Sharing System
+Version: 0.1.0
+Author: c(person(family="Connelly", given="Brian", email="bdc@bconnelly.net",
+                    role=c("aut", "cre")))
+Maintainer: Brian Connelly <bdc@bconnelly.net>
+Description: pronto is a lightweight package that retrieves up-to-date station information for the Pronto Cycle Sharing system.
+URL: https://github.com/briandconnelly/pronto
+BugReports: https://github.com/briandconnelly/pronto/issues
+License: BSD_2_clause + file LICENSE
+LazyData: TRUE
+RoxygenNote: 5.0.1
+Depends:
+    R (>= 3.0.0)
+Imports:
+    httr,
+    jsonlite
