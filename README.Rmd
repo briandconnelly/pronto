@@ -73,10 +73,16 @@ Let's make a map of current bike availability across the city using [ggmap](http
 
 ```{r ExampleStationMap, message=FALSE, warning=FALSE}
 library(pronto)
+library(dplyr)
+library(magrittr)
 library(ggplot2)
 library(ggmap)
 
 s <- pronto_stations()
+
+avail <- s$stations %>%
+    filter(su == FALSE) %>%
+    summarise(StationsAvail=n(), BikesAvail=sum(ba))
 
 map <- get_map(location = c(lon=mean(s$stations$lo), lat=mean(s$stations$la)),
                zoom = 13, maptype = "terrain-lines")
@@ -84,8 +90,9 @@ p <- ggmap(map) +
     geom_point(data = s$stations,
                aes(x=lo, y=la, size=ba, color=ba), alpha = 0.6) +
     scale_size_area(guide=FALSE) +
-    scale_color_continuous(name = "Bikes\nAvailable") +
+    scale_color_continuous(name = "Bikes") +
     scale_alpha_continuous(guide = FALSE) +
+    ggtitle(sprintf("%d bikes available at %d stations", avail$BikesAvail, avail$StationsAvail)) +
     theme_minimal() +
     theme(axis.text = element_blank()) +
     theme(axis.title = element_blank()) +
