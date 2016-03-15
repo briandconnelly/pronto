@@ -43,7 +43,7 @@ library(pronto)
 stations <- pronto_stations()
 ```
 
-## Plotting system information
+## Mapping Available Bikes
 
 Let's make a map of current bike availability across the city using [ggmap](https://github.com/dkahle/ggmap).
 

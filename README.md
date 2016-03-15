@@ -31,8 +31,8 @@ stations <- pronto_stations()
 #> No encoding supplied: defaulting to UTF-8.
 ```
 
-Plotting system information
----------------------------
+Mapping Available Bikes
+-----------------------
 
 Let's make a map of current bike availability across the city using [ggmap](https://github.com/dkahle/ggmap).
 
