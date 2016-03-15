@@ -54,18 +54,20 @@ library(ggmap)
 
 s <- pronto_stations()
 
-map <- get_googlemap("seattle", zoom = 12, color = "bw", maptype = "roadmap")
+map <- get_map(location = c(lon=mean(s$stations$lo), lat=mean(s$stations$la)),
+               zoom = 13, maptype = "terrain-lines")
 p <- ggmap(map) +
-    geom_point(data=s$stations, aes(x=lo, y=la, size=ba, color=ba), alpha=0.6) +
+    geom_point(data = s$stations,
+               aes(x=lo, y=la, size=ba, color=ba), alpha = 0.6) +
     scale_size_area(guide=FALSE) +
-    scale_color_continuous(name = "Bikes Available") +
+    scale_color_continuous(name = "Bikes\nAvailable") +
+    scale_alpha_continuous(guide = FALSE) +
     theme_minimal() +
     theme(axis.text = element_blank()) +
     theme(axis.title = element_blank()) +
     theme(legend.title = element_text(size = rel(0.8))) +
     theme(legend.text = element_text(size = rel(0.6)))
 p
-
 ```
 
 
