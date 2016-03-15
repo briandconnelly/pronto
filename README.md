@@ -122,7 +122,7 @@ p <- ggmap(map) +
     theme(legend.title = element_text(size = rel(0.8))) +
     theme(legend.text = element_text(size = rel(0.6))) +
     theme(legend.key.size = unit(0.8, "lines"))
-gg_animate(p)
+gg_animate(p, pause = 0.5, title_frame = FALSE)
 ```
 
 Finding the closest bike
