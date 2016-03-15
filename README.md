@@ -11,8 +11,10 @@ Installation
 [devtools](http://cran.r-project.org/web/packages/devtools/index.html) to
 install the latest and greatest version. To do so:
 
-if(!require("devtools")) install.packages("devtools")
-devtools::install\_github("briandconnelly/pronto")
+``` r
+if(!require("devtools")) install.packages("devtools")                       
+devtools::install_github("briandconnelly/pronto")
+```
 
 Examples
 ========

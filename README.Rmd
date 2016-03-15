@@ -25,9 +25,10 @@ pronto is a simple R package for interacting with data from from Seattle's [Pron
 [devtools](http://cran.r-project.org/web/packages/devtools/index.html) to       
 install the latest and greatest version. To do so:                              
 
+```{r, eval=FALSE}
 if(!require("devtools")) install.packages("devtools")                       
 devtools::install_github("briandconnelly/pronto")
-
+```
 
 # Examples
 
