@@ -116,10 +116,10 @@ p <- ggmap(map) +
 gg_animate(p)
 ```
 
-Getting information for the nearest station
--------------------------------------------
+Finding the closest bike
+------------------------
 
-[fossil](https://cran.r-project.org/web/packages/fossil/index.html)
+We've just picked up some drinks at [Pete's Wine Shop](http://www.peteswineshop.com) and need to get to the party. We can use [fossil](https://cran.r-project.org/web/packages/fossil/index.html) to calculate the distances between our location (`here`) and each station to find the nearest bike.
 
 ``` r
 library(pronto)
@@ -127,20 +127,18 @@ library(fossil)
 library(dplyr)
 library(magrittr)
 
-here <- list(lo=-122.329, la=47.641)
+here <- list(lo=-122.329401, la=47.639821)
 
 closest_station <- pronto_stations()$stations %>%
     mutate(dist_km = deg.dist(.$lo, .$la, here$lo, here$la)) %>%
     arrange(dist_km) %>%
-    head(n=1)
+    filter(ba > 0) %>%           # make sure there's a bike available
+    filter(su == FALSE) %>%      # make sure the station is operating
+    head(n = 1)
 
-cat(sprintf("The %s station currently has %d bike(s) available",
-            closest_station$s, closest_station$ba))
-#> The E Blaine St & Fairview Ave E station currently has 7 bike(s) available
-
-if (closest_station$su) {
-    cat("NOTE: Rentals are currently suspended at this station!")
-}
+cat(sprintf("The %s station is %.02f km away and currently has %d bike(s) available",
+            closest_station$s, closest_station$dist_km, closest_station$ba))
+#> The E Blaine St & Fairview Ave E station is 0.59 km away and currently has 8 bike(s) available
 ```
 
 Disclaimer
