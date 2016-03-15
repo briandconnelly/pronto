@@ -2,16 +2,14 @@
 pronto
 ======
 
-pronto is a simple R package for interacting with data from from Seattle's [Pronto](http://www.prontocycleshare.com) cycle sharing system. Data comes from Pronto's simple [data stream](https://secure.prontocycleshare.com/data/stations.json), which is described [here](http://www.prontocycleshare.com/assets/pdf/JSON.pdf).
+pronto is a simple R package for interacting with data from from Seattle's [Pronto](http://www.prontocycleshare.com) cycle sharing system. Data comes from Pronto's [data stream](https://secure.prontocycleshare.com/data/stations.json), which is described [here](http://www.prontocycleshare.com/assets/pdf/JSON.pdf).
 
-Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
+This project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
 
 Installation
 ============
 
-`pronto` is not on [CRAN](http://cran.r-project.org/), but you can use
-[devtools](http://cran.r-project.org/web/packages/devtools/index.html) to
-install the latest and greatest version. To do so:
+`pronto` is not on [CRAN](http://cran.r-project.org/), but you can install the latest and greatest version using [devtools](http://cran.r-project.org/web/packages/devtools/index.html):
 
 ``` r
 if(!require("devtools")) install.packages("devtools")                       
@@ -30,7 +28,22 @@ library(pronto)
 s <- pronto_stations()
 ```
 
-The result, `s`, is a list containing a `timestamp` for the data, whether or not the system is suspended (`schemeSuspended`), and a data frame containing information about all of the stations (`stations`).
+The result, `s`, is a list containing a `timestamp` for the data, whether or not rentals across the system are suspended (`schemeSuspended`), and a data frame containing information about all of the stations (`stations`).
+
+`stations` looks like this:
+
+|   id| s                              | n      |   st| b     | su    | m     |            lu|            lc| bk    | bl    |        la|         lo|   da|   dx|   ba|   bx|
+|----:|:-------------------------------|:-------|----:|:------|:------|:------|-------------:|-------------:|:------|:------|---------:|----------:|----:|----:|----:|----:|
+|    1| 3rd Ave & Broad St             | BT-01  |    1| FALSE | FALSE | FALSE |  1.458057e+12|  1.458065e+12| FALSE | FALSE |  47.61842|  -122.3510|   10|    0|    7|    1|
+|    2| 2nd Ave & Vine St              | BT-03  |    1| FALSE | FALSE | FALSE |  1.458058e+12|  1.458065e+12| TRUE  | TRUE  |  47.61583|  -122.3486|   11|    0|    4|    1|
+|    3| 6th Ave & Blanchard St         | BT-04  |    1| FALSE | FALSE | FALSE |  1.458064e+12|  1.458066e+12| TRUE  | TRUE  |  47.61609|  -122.3411|    8|    0|    7|    1|
+|    4| 2nd Ave & Blanchard St         | BT-05  |    1| FALSE | FALSE | FALSE |  1.458059e+12|  1.458066e+12| TRUE  | TRUE  |  47.61311|  -122.3442|    7|    0|    5|    1|
+|    5| 2nd Ave & Pine St              | CBD-13 |    1| FALSE | FALSE | FALSE |  1.458062e+12|  1.458065e+12| TRUE  | TRUE  |  47.61018|  -122.3396|    9|    1|    6|    2|
+|    6| 7th Ave & Union St             | CBD-03 |    1| FALSE | FALSE | FALSE |  1.458061e+12|  1.458066e+12| TRUE  | TRUE  |  47.61073|  -122.3324|    8|    1|    5|    6|
+|    7| City Hall / 4th Ave & James St | CBD-07 |    1| FALSE | FALSE | FALSE |  1.458066e+12|  1.458066e+12| TRUE  | TRUE  |  47.60351|  -122.3304|   10|    0|    6|    0|
+|    8| Pine St & 9th Ave              | SLU-16 |    1| FALSE | FALSE | FALSE |  1.458063e+12|  1.458065e+12| TRUE  | TRUE  |  47.61371|  -122.3318|    5|    1|    7|    1|
+|    9| 2nd Ave & Spring St            | CBD-06 |    1| FALSE | FALSE | FALSE |  1.458057e+12|  1.458065e+12| TRUE  | TRUE  |  47.60595|  -122.3358|    9|    2|    7|    0|
+|   10| Summit Ave & E Denny Way       | CH-01  |    1| FALSE | FALSE | FALSE |  1.458063e+12|  1.458065e+12| TRUE  | TRUE  |  47.61863|  -122.3252|    5|    1|    8|    2|
 
 Getting information for a single station
 ----------------------------------------
@@ -48,7 +61,7 @@ s_fhcrc <- s$stations %>%
     filter(id == 22)
 ```
 
-Mapping Available Bikes
+Mapping available bikes
 -----------------------
 
 Let's make a map of current bike availability across the city using [ggmap](https://github.com/dkahle/ggmap).
@@ -129,7 +142,7 @@ gg_animate(p, pause = 0.5, title_frame = FALSE)
 Finding the closest bike
 ------------------------
 
-We've just picked up some drinks at [Pete's Wine Shop](http://www.peteswineshop.com) and need to get to the party. We can use [fossil](https://cran.r-project.org/web/packages/fossil/index.html) to calculate the distances between our location (`here`) and each station to find the nearest bike. Unfortunately, this won't tell you about hills.
+We've just picked up some wine at [Pete's](http://www.peteswineshop.com) and need to get to the party. To find the nearest bike, we can use [fossil](https://cran.r-project.org/web/packages/fossil/index.html) to calculate the distances between our location (`here`) and each station. Unfortunately, this won't tell you about hills.
 
 ``` r
 library(pronto)
@@ -137,7 +150,7 @@ library(fossil)
 library(dplyr)
 library(magrittr)
 
-here <- list(lo=-122.329401, la=47.639821)
+here <- list(lo = -122.329401, la = 47.639821)
 
 closest_station <- pronto_stations()$stations %>%
     mutate(dist_km = deg.dist(.$lo, .$la, here$lo, here$la)) %>%

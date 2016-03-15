@@ -17,18 +17,16 @@ knitr::opts_chunk$set(
 # pronto                                                                    
 
 pronto is a simple R package for interacting with data from from Seattle's [Pronto](http://www.prontocycleshare.com) cycle sharing system. Data comes from
-Pronto's simple [data stream](https://secure.prontocycleshare.com/data/stations.json),
+Pronto's [data stream](https://secure.prontocycleshare.com/data/stations.json),
 which is described [here](http://www.prontocycleshare.com/assets/pdf/JSON.pdf).
 
-Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md).
+This project is released with a [Contributor Code of Conduct](CONDUCT.md).
 By participating in this project you agree to abide by its terms.
 
 
 # Installation                                                                  
 
-`pronto` is not on [CRAN](http://cran.r-project.org/), but you can use      
-[devtools](http://cran.r-project.org/web/packages/devtools/index.html) to       
-install the latest and greatest version. To do so:                              
+`pronto` is not on [CRAN](http://cran.r-project.org/), but you can install the latest and greatest version using [devtools](http://cran.r-project.org/web/packages/devtools/index.html):
 
 ```{r, eval=FALSE}
 if(!require("devtools")) install.packages("devtools")                       
@@ -46,8 +44,14 @@ s <- pronto_stations()
 ```
 
 The result, `s`, is a list containing a `timestamp` for the data, whether or not
-the system is suspended (`schemeSuspended`), and a data frame containing
+rentals across the system are suspended (`schemeSuspended`), and a data frame containing
 information about all of the stations (`stations`).
+
+`stations` looks like this:
+
+```{r Stations Sample, echo=FALSE}
+knitr::kable(head(s$stations, n=10), row.names = FALSE)
+```
 
 
 ## Getting information for a single station
@@ -67,7 +71,7 @@ s_fhcrc <- s$stations %>%
 ```
 
 
-## Mapping Available Bikes
+## Mapping available bikes
 
 Let's make a map of current bike availability across the city using [ggmap](https://github.com/dkahle/ggmap).
 
@@ -147,8 +151,8 @@ gg_animate(p, pause = 0.5, title_frame = FALSE)
 
 ## Finding the closest bike
 
-We've just picked up some drinks at [Pete's Wine Shop](http://www.peteswineshop.com) and need to get to the party.
-We can use [fossil](https://cran.r-project.org/web/packages/fossil/index.html) to calculate the distances between our location (`here`) and each station to find the nearest bike.
+We've just picked up some wine at [Pete's](http://www.peteswineshop.com) and need to get to the party.
+To find the nearest bike, we can use [fossil](https://cran.r-project.org/web/packages/fossil/index.html) to calculate the distances between our location (`here`) and each station.
 Unfortunately, this won't tell you about hills.
 
 
@@ -158,7 +162,7 @@ library(fossil)
 library(dplyr)
 library(magrittr)
 
-here <- list(lo=-122.329401, la=47.639821)
+here <- list(lo = -122.329401, la = 47.639821)
 
 closest_station <- pronto_stations()$stations %>%
     mutate(dist_km = deg.dist(.$lo, .$la, here$lo, here$la)) %>%
