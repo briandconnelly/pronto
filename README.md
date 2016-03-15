@@ -79,7 +79,8 @@ p <- ggmap(map) +
     theme(axis.text = element_blank()) +
     theme(axis.title = element_blank()) +
     theme(legend.title = element_text(size = rel(0.8))) +
-    theme(legend.text = element_text(size = rel(0.6)))
+    theme(legend.text = element_text(size = rel(0.6))) +
+    theme(legend.key.size = unit(0.8, "lines"))
 p
 ```
 
@@ -113,20 +114,21 @@ p <- ggmap(map) +
                aes(x=lo, y=la, size=ba, color=ba, frame = timestamp),
                alpha = 0.6) +
     scale_size_area(guide=FALSE) +
-    scale_color_continuous(name = "Bikes\nAvailable") +
+    scale_color_continuous(name = "Bikes") +
     scale_alpha_continuous(guide = FALSE) +
     theme_minimal() +
     theme(axis.text = element_blank()) +
     theme(axis.title = element_blank()) +
     theme(legend.title = element_text(size = rel(0.8))) +
-    theme(legend.text = element_text(size = rel(0.6)))
+    theme(legend.text = element_text(size = rel(0.6))) +
+    theme(legend.key.size = unit(0.8, "lines"))
 gg_animate(p)
 ```
 
 Finding the closest bike
 ------------------------
 
-We've just picked up some drinks at [Pete's Wine Shop](http://www.peteswineshop.com) and need to get to the party. We can use [fossil](https://cran.r-project.org/web/packages/fossil/index.html) to calculate the distances between our location (`here`) and each station to find the nearest bike.
+We've just picked up some drinks at [Pete's Wine Shop](http://www.peteswineshop.com) and need to get to the party. We can use [fossil](https://cran.r-project.org/web/packages/fossil/index.html) to calculate the distances between our location (`here`) and each station to find the nearest bike. Unfortunately, this won't tell you about hills.
 
 ``` r
 library(pronto)
@@ -143,9 +145,9 @@ closest_station <- pronto_stations()$stations %>%
     filter(su == FALSE) %>%      # make sure the station is operating
     head(n = 1)
 
-cat(sprintf("The %s station is %.02f km away and currently has %d bike(s) available",
+cat(sprintf("The %s station is %.02f km away and has %d bike(s) available",
             closest_station$s, closest_station$dist_km, closest_station$ba))
-#> The E Blaine St & Fairview Ave E station is 0.59 km away and currently has 9 bike(s) available
+#> The E Blaine St & Fairview Ave E station is 0.59 km away and has 9 bike(s) available
 ```
 
 Disclaimer
