@@ -47,10 +47,10 @@ The result, `s`, is a list containing a `timestamp` for the data, whether or not
 rentals across the system are suspended (`schemeSuspended`), and a data frame containing
 information about all of the stations (`stations`).
 
-`stations` looks like this:
+The first five rows of `stations` look like this:
 
 ```{r Stations Sample, echo=FALSE}
-knitr::kable(head(s$stations, n=10), row.names = FALSE)
+knitr::kable(head(s$stations, n=5), row.names = FALSE)
 ```
 
 
@@ -167,8 +167,8 @@ here <- list(lo = -122.329401, la = 47.639821)
 closest_station <- pronto_stations()$stations %>%
     mutate(dist_km = deg.dist(.$lo, .$la, here$lo, here$la)) %>%
     arrange(dist_km) %>%
-    filter(ba > 0) %>%           # make sure there's a bike available
-    filter(su == FALSE) %>%      # make sure the station is operating
+    filter(st == 1) %>%          # the station is in service
+    filter(ba > 0) %>%           # there's a bike available
     head(n = 1)
 
 cat(sprintf("The %s station is %.02f km away and has %d bike(s) available",
