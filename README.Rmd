@@ -84,7 +84,7 @@ avail <- s$stations %>%
     filter(su == FALSE) %>%
     summarise(StationsAvail=n(), BikesAvail=sum(ba))
 
-map <- get_map(location = c(lon=mean(s$stations$lo), lat=mean(s$stations$la)),
+map <- get_map(location = c(lon=mean(range(s$stations$lo)), lat=mean(range(s$stations$la))),
                zoom = 13, maptype = "terrain-lines")
 p <- ggmap(map) +
     geom_point(data = s$stations,
@@ -126,7 +126,7 @@ for (i in seq(60)) {
     Sys.sleep(60)
 }
 
-map <- get_map(location = c(lon=mean(s$stations$lo), lat=mean(s$stations$la)),
+map <- get_map(location = c(lon=mean(range(s$stations$lo)), lat=mean(range(s$stations$la))),
                zoom = 13, maptype = "terrain-lines")
 p <- ggmap(map) +
     geom_point(data = stationdata,
